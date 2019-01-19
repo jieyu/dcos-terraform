@@ -6,3 +6,11 @@ This is an umbrella repository for all terraform modules under https://github.co
 $ git clone <URL_TO_THIS_REPO>
 $ git submodule update --init
 ```
+
+# Directory Layout
+
+The directories in this repository follow this layout:
+
+```
+<provider>/<name>
+```
