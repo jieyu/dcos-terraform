@@ -1,201 +1,201 @@
 [submodule "localfile/dcos-ansible-bridge"]
-	path = localfile/dcos-ansible-bridge
+	path = modules/localfile/dcos-ansible-bridge
 	url = https://github.com/dcos-terraform/terraform-localfile-dcos-ansible-bridge
 [submodule "aws/dcos"]
-	path = aws/dcos
+	path = modules/aws/dcos
 	url = https://github.com/dcos-terraform/terraform-aws-dcos
 [submodule "aws/masters"]
-	path = aws/masters
+	path = modules/aws/masters
 	url = https://github.com/dcos-terraform/terraform-aws-masters
 [submodule "gcp/dcos"]
-	path = gcp/dcos
+	path = modules/gcp/dcos
 	url = https://github.com/dcos-terraform/terraform-gcp-dcos
 [submodule "aws/public-agents"]
-	path = aws/public-agents
+	path = modules/aws/public-agents
 	url = https://github.com/dcos-terraform/terraform-aws-public-agents
 [submodule "aws/private-agents"]
-	path = aws/private-agents
+	path = modules/aws/private-agents
 	url = https://github.com/dcos-terraform/terraform-aws-private-agents
 [submodule "aws/vpc"]
-	path = aws/vpc
+	path = modules/aws/vpc
 	url = https://github.com/dcos-terraform/terraform-aws-vpc
 [submodule "aws/security-groups"]
-	path = aws/security-groups
+	path = modules/aws/security-groups
 	url = https://github.com/dcos-terraform/terraform-aws-security-groups
 [submodule "gcp/network"]
-	path = gcp/network
+	path = modules/gcp/network
 	url = https://github.com/dcos-terraform/terraform-gcp-network
 [submodule "azurerm/vnet"]
-	path = azurerm/vnet
+	path = modules/azurerm/vnet
 	url = https://github.com/dcos-terraform/terraform-azurerm-vnet
 [submodule "gcp/masters"]
-	path = gcp/masters
+	path = modules/gcp/masters
 	url = https://github.com/dcos-terraform/terraform-gcp-masters
 [submodule "azurerm/masters"]
-	path = azurerm/masters
+	path = modules/azurerm/masters
 	url = https://github.com/dcos-terraform/terraform-azurerm-masters
 [submodule "gcp/private-agents"]
-	path = gcp/private-agents
+	path = modules/gcp/private-agents
 	url = https://github.com/dcos-terraform/terraform-gcp-private-agents
 [submodule "gcp/public-agents"]
-	path = gcp/public-agents
+	path = modules/gcp/public-agents
 	url = https://github.com/dcos-terraform/terraform-gcp-public-agents
 [submodule "gcp/bootstrap"]
-	path = gcp/bootstrap
+	path = modules/gcp/bootstrap
 	url = https://github.com/dcos-terraform/terraform-gcp-bootstrap
 [submodule "azurerm/bootstrap"]
-	path = azurerm/bootstrap
+	path = modules/azurerm/bootstrap
 	url = https://github.com/dcos-terraform/terraform-azurerm-bootstrap
 [submodule "azurerm/private-agents"]
-	path = azurerm/private-agents
+	path = modules/azurerm/private-agents
 	url = https://github.com/dcos-terraform/terraform-azurerm-private-agents
 [submodule "azurerm/public-agents"]
-	path = azurerm/public-agents
+	path = modules/azurerm/public-agents
 	url = https://github.com/dcos-terraform/terraform-azurerm-public-agents
 [submodule "azurerm/dcos"]
-	path = azurerm/dcos
+	path = modules/azurerm/dcos
 	url = https://github.com/dcos-terraform/terraform-azurerm-dcos
 [submodule "aws/bootstrap"]
-	path = aws/bootstrap
+	path = modules/aws/bootstrap
 	url = https://github.com/dcos-terraform/terraform-aws-bootstrap
 [submodule "template/gcp-tested-oses"]
-	path = template/gcp-tested-oses
+	path = modules/template/gcp-tested-oses
 	url = https://github.com/dcos-terraform/terraform-template-gcp-tested-oses
 [submodule "gcp/instance"]
-	path = gcp/instance
+	path = modules/gcp/instance
 	url = https://github.com/dcos-terraform/terraform-gcp-instance
 [submodule "aws/iam"]
-	path = aws/iam
+	path = modules/aws/iam
 	url = https://github.com/dcos-terraform/terraform-aws-iam
 [submodule "aws/instance"]
-	path = aws/instance
+	path = modules/aws/instance
 	url = https://github.com/dcos-terraform/terraform-aws-instance
 [submodule "aws/tested-oses"]
-	path = aws/tested-oses
+	path = modules/aws/tested-oses
 	url = https://github.com/dcos-terraform/terraform-aws-tested-oses
 [submodule "aws/elb"]
-	path = aws/elb
+	path = modules/aws/elb
 	url = https://github.com/dcos-terraform/terraform-aws-elb
 [submodule "aws/elb-masters"]
-	path = aws/elb-masters
+	path = modules/aws/elb-masters
 	url = https://github.com/dcos-terraform/terraform-aws-elb-masters
 [submodule "aws/elb-masters-internal"]
-	path = aws/elb-masters-internal
+	path = modules/aws/elb-masters-internal
 	url = https://github.com/dcos-terraform/terraform-aws-elb-masters-internal
 [submodule "aws/elb-public-agents"]
-	path = aws/elb-public-agents
+	path = modules/aws/elb-public-agents
 	url = https://github.com/dcos-terraform/terraform-aws-elb-public-agents
 [submodule "aws/elb-dcos"]
-	path = aws/elb-dcos
+	path = modules/aws/elb-dcos
 	url = https://github.com/dcos-terraform/terraform-aws-elb-dcos
 [submodule "aws/infrastructure"]
-	path = aws/infrastructure
+	path = modules/aws/infrastructure
 	url = https://github.com/dcos-terraform/terraform-aws-infrastructure
 [submodule "template/dcos-core"]
-	path = template/dcos-core
+	path = modules/template/dcos-core
 	url = https://github.com/dcos-terraform/terraform-template-dcos-core
 [submodule "null/dcos-install-bootstrap-remote-exec"]
-	path = null/dcos-install-bootstrap-remote-exec
+	path = modules/null/dcos-install-bootstrap-remote-exec
 	url = https://github.com/dcos-terraform/terraform-null-dcos-install-bootstrap-remote-exec
 [submodule "null/dcos-install-public-agents-remote-exec"]
-	path = null/dcos-install-public-agents-remote-exec
+	path = modules/null/dcos-install-public-agents-remote-exec
 	url = https://github.com/dcos-terraform/terraform-null-dcos-install-public-agents-remote-exec
 [submodule "null/dcos-install-private-agents-remote-exec"]
-	path = null/dcos-install-private-agents-remote-exec
+	path = modules/null/dcos-install-private-agents-remote-exec
 	url = https://github.com/dcos-terraform/terraform-null-dcos-install-private-agents-remote-exec
 [submodule "null/dcos-install-masters-remote-exec"]
-	path = null/dcos-install-masters-remote-exec
+	path = modules/null/dcos-install-masters-remote-exec
 	url = https://github.com/dcos-terraform/terraform-null-dcos-install-masters-remote-exec
 [submodule "gcp/compute-firewall"]
-	path = gcp/compute-firewall
+	path = modules/gcp/compute-firewall
 	url = https://github.com/dcos-terraform/terraform-gcp-compute-firewall
 [submodule "gcp/backend-service"]
-	path = gcp/backend-service
+	path = modules/gcp/backend-service
 	url = https://github.com/dcos-terraform/terraform-gcp-backend-service
 [submodule "gcp/infrastructure"]
-	path = gcp/infrastructure
+	path = modules/gcp/infrastructure
 	url = https://github.com/dcos-terraform/terraform-gcp-infrastructure
 [submodule "null/dcos-install-remote-exec"]
-	path = null/dcos-install-remote-exec
+	path = modules/null/dcos-install-remote-exec
 	url = https://github.com/dcos-terraform/terraform-null-dcos-install-remote-exec
 [submodule "azurerm/infrastructure"]
-	path = azurerm/infrastructure
+	path = modules/azurerm/infrastructure
 	url = https://github.com/dcos-terraform/terraform-azurerm-infrastructure
 [submodule "azurerm/instance"]
-	path = azurerm/instance
+	path = modules/azurerm/instance
 	url = https://github.com/dcos-terraform/terraform-azurerm-instance
 [submodule "azurerm/lb"]
-	path = azurerm/lb
+	path = modules/azurerm/lb
 	url = https://github.com/dcos-terraform/terraform-azurerm-lb
 [submodule "azurerm/nsg"]
-	path = azurerm/nsg
+	path = modules/azurerm/nsg
 	url = https://github.com/dcos-terraform/terraform-azurerm-nsg
 [submodule "template/azurerm-tested-oses"]
-	path = template/azurerm-tested-oses
+	path = modules/template/azurerm-tested-oses
 	url = https://github.com/dcos-terraform/terraform-template-azurerm-tested-oses
 [submodule "aws/remote-connection-route"]
-	path = aws/remote-connection-route
+	path = modules/aws/remote-connection-route
 	url = https://github.com/dcos-terraform/terraform-aws-remote-connection-route
 [submodule "gcp/compute-forwarding-rule"]
-	path = gcp/compute-forwarding-rule
+	path = modules/gcp/compute-forwarding-rule
 	url = https://github.com/dcos-terraform/terraform-gcp-compute-forwarding-rule
 [submodule "gcp/compute-forwarding-rule-masters"]
-	path = gcp/compute-forwarding-rule-masters
+	path = modules/gcp/compute-forwarding-rule-masters
 	url = https://github.com/dcos-terraform/terraform-gcp-compute-forwarding-rule-masters
 [submodule "gcp/compute-forwarding-rule-public-agents"]
-	path = gcp/compute-forwarding-rule-public-agents
+	path = modules/gcp/compute-forwarding-rule-public-agents
 	url = https://github.com/dcos-terraform/terraform-gcp-compute-forwarding-rule-public-agents
 [submodule "gcp/compute-forwarding-rule-dcos"]
-	path = gcp/compute-forwarding-rule-dcos
+	path = modules/gcp/compute-forwarding-rule-dcos
 	url = https://github.com/dcos-terraform/terraform-gcp-compute-forwarding-rule-dcos
 [submodule "azurerm/lb-masters"]
-	path = azurerm/lb-masters
+	path = modules/azurerm/lb-masters
 	url = https://github.com/dcos-terraform/terraform-azurerm-lb-masters
 [submodule "azurerm/lb-public-agents"]
-	path = azurerm/lb-public-agents
+	path = modules/azurerm/lb-public-agents
 	url = https://github.com/dcos-terraform/terraform-azurerm-lb-public-agents
 [submodule "azurerm/lb-masters-internal"]
-	path = azurerm/lb-masters-internal
+	path = modules/azurerm/lb-masters-internal
 	url = https://github.com/dcos-terraform/terraform-azurerm-lb-masters-internal
 [submodule "azurerm/lb-dcos"]
-	path = azurerm/lb-dcos
+	path = modules/azurerm/lb-dcos
 	url = https://github.com/dcos-terraform/terraform-azurerm-lb-dcos
 [submodule "aws/route53-elb"]
-	path = aws/route53-elb
+	path = modules/aws/route53-elb
 	url = https://github.com/dcos-terraform/terraform-aws-route53-elb
 [submodule "aws/route53-instances"]
-	path = aws/route53-instances
+	path = modules/aws/route53-instances
 	url = https://github.com/dcos-terraform/terraform-aws-route53-instances
 [submodule "aws/route53-zone"]
-	path = aws/route53-zone
+	path = modules/aws/route53-zone
 	url = https://github.com/dcos-terraform/terraform-aws-route53-zone
 [submodule "azurerm/tested-oses"]
-	path = azurerm/tested-oses
+	path = modules/azurerm/tested-oses
 	url = https://github.com/dcos-terraform/terraform-azurerm-tested-oses
 [submodule "gcp/tested-oses"]
-	path = gcp/tested-oses
+	path = modules/gcp/tested-oses
 	url = https://github.com/dcos-terraform/terraform-gcp-tested-oses
 [submodule "aws/volumes-dcos"]
-	path = aws/volumes-dcos
+	path = modules/aws/volumes-dcos
 	url = https://github.com/dcos-terraform/terraform-aws-volumes-dcos
 [submodule "aws/lb"]
-	path = aws/lb
+	path = modules/aws/lb
 	url = https://github.com/dcos-terraform/terraform-aws-lb
 [submodule "aws/lb-masters"]
-	path = aws/lb-masters
+	path = modules/aws/lb-masters
 	url = https://github.com/dcos-terraform/terraform-aws-lb-masters
 [submodule "aws/lb-masters-internal"]
-	path = aws/lb-masters-internal
+	path = modules/aws/lb-masters-internal
 	url = https://github.com/dcos-terraform/terraform-aws-lb-masters-internal
 [submodule "aws/lb-public-agents"]
-	path = aws/lb-public-agents
+	path = modules/aws/lb-public-agents
 	url = https://github.com/dcos-terraform/terraform-aws-lb-public-agents
 [submodule "aws/lb-dcos"]
-	path = aws/lb-dcos
+	path = modules/aws/lb-dcos
 	url = https://github.com/dcos-terraform/terraform-aws-lb-dcos
 [submodule "aws/vpc-peering"]
-	path = aws/vpc-peering
+	path = modules/aws/vpc-peering
 	url = https://github.com/dcos-terraform/terraform-aws-vpc-peering
 [submodule "aws/remote-region"]
-	path = aws/remote-region
+	path = modules/aws/remote-region
 	url = https://github.com/dcos-terraform/terraform-aws-remote-region
