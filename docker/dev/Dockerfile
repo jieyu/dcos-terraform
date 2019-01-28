@@ -1,18 +1,11 @@
 FROM golang:1.11.0
 
-ARG PACKAGE_NAME
-ARG PACKAGE_VERSION
-
-LABEL Name="${PACKAGE_NAME}-dev"
-LABEL Description="Development Docker image for ${PACKAGE_NAME}."
-LABEL Version="0.1.0"
-
 ENV LC_ALL=C.UTF-8 \
     LANG=C.UTF-8
 
 RUN apt-get update \
   && env DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
-       python3 python3-pip python3-venv zip unzip upx shellcheck jq gettext-base \
+       python3 python3-pip python3-venv zip unzip upx shellcheck jq gettext-base rsync \
   && echo "deb http://ftp.us.debian.org/debian testing main contrib non-free" >> /etc/apt/sources.list \
   && apt-get update \
   && env DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
@@ -35,6 +28,12 @@ RUN curl -s $DOCKER_URL -o /docker.tgz && \
     tar -xzvf /docker.tgz -C /usr/local/bin --strip 1 && \
     rm -f /docker.tgz
 
+ARG TERRAFORM_URL=https://releases.hashicorp.com/terraform/0.11.11/terraform_0.11.11_linux_amd64.zip
+
+RUN curl -s $TERRAFORM_URL -o /terraform.zip && \
+    unzip -d /usr/local/bin /terraform.zip && \
+    rm -f /terraform.zip
+
 ADD user-init.sh /user-init.sh
 
 ARG USER_NAME=root
@@ -43,7 +42,15 @@ ARG GROUP_NAME=root
 ARG GROUP_ID=0
 
 RUN /user-init.sh $USER_NAME $USER_ID $GROUP_NAME $GROUP_ID
+RUN rm -f /user-init.sh
 
 WORKDIR /
 
 CMD ["/bin/bash"]
+
+ARG PACKAGE_NAME
+ARG PACKAGE_VERSION
+
+LABEL Name="${PACKAGE_NAME}-dev"
+LABEL Description="Development Docker image for ${PACKAGE_NAME}."
+LABEL Version="0.1.0"
