@@ -4,14 +4,34 @@ This is an umbrella repository for all [terraform modules](https://github.com/dc
 
 ## Get Started
 
+First, pull all the Terraform module dependencies.
+
 ```bash
 $ git clone <URL_TO_THIS_REPO>
-$ git submodule update --init
+$ make bootstrap
 ```
 
-## Directory Layout
+All Terraform modules are git submodules linked to the actual git repositories for the Terraform modules.
 
-The directories in this repository follow this layout:
+Now, you can start to edit Terraform module files.
+No need to modify module `source` fields as those will be automatically rewritten for local testing.
+Once you are done, type the following command to create the local testing environment:
+
+```bash
+$ make tenv
+```
+
+The command will output a directory path in the end.
+The directory should have Terraform initialized with your locally modified Terraform modules.
+
+```bash
+$ cd <GENERATED_PATH>
+$ terraform apply
+```
+
+## Modules Layout
+
+The Terraform modules in this repository follow this layout:
 
 ```bash
 modules/<provider>/<name>
