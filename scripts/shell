@@ -1,0 +1,139 @@
+#!/usr/bin/env bash
+
+set -o errexit -o nounset -o pipefail
+
+CURRENT_DIR="$(cd "$(dirname "$0")"; pwd -P)"
+ROOT_DIR="${CURRENT_DIR}/.."
+
+# shellcheck source=/dev/null
+. "${ROOT_DIR}/PACKAGE"
+
+PACKAGE_VERSION=$("${ROOT_DIR}/scripts/get-package-version.sh")
+
+DOCKER_DEV_IMAGE=${DOCKER_DEV_IMAGE:-"${PACKAGE_NAME}-dev"}
+
+USER_NAME=$(id -u -n)
+USER_ID=$(id -u)
+GROUP_NAME=$(id -g -n)
+GROUP_ID=$(id -g)
+
+docker build \
+  --build-arg "PACKAGE_NAME=${PACKAGE_NAME}" \
+  --build-arg "PACKAGE_VERSION=${PACKAGE_VERSION}" \
+  --build-arg "USER_NAME=${USER_NAME}" \
+  --build-arg "USER_ID=${USER_ID}" \
+  --build-arg "GROUP_NAME=${GROUP_NAME}" \
+  --build-arg "GROUP_ID=${GROUP_ID}" \
+  -t "${DOCKER_DEV_IMAGE}" \
+  "${ROOT_DIR}/docker/dev/" \
+  1>&2
+
+TMP_DIR=$(mktemp -d)
+trap '{ rm -rf ${TMP_DIR}; }' EXIT
+
+# Configure AWS credentials.
+TMP_AWS_CREDS_PATH="${TMP_DIR}/aws_creds"
+
+AWS_CREDS_PATH=${AWS_CREDS_PATH:-"${HOME}/.aws/credentials"}
+
+if [ -z "${AWS_PROFILE:-""}" ] && [ -f "${AWS_CREDS_PATH}" ]; then
+  # Check the creds file. If there's exactly one profile, then use
+  # that profile. If not, return an error.
+
+  # Find line(s) that look like "[profile]", remove "[]".
+  AVAILABLE_PROFILES=$(grep -oE '^\[\S+\]' "${AWS_CREDS_PATH}" | tr -d '[]')
+
+  AVAILABLE_PROFILE_COUNT=$(echo "${AVAILABLE_PROFILES}" | wc -l)
+  if [ "$AVAILABLE_PROFILE_COUNT" == "1" ]; then
+    AWS_PROFILE="${AVAILABLE_PROFILES}"
+    echo "Using sole profile in '${AWS_CREDS_PATH}': ${AWS_PROFILE}" >&2
+  else
+    echo "Expected 1 profile in '${AWS_CREDS_PATH}', found ${AVAILABLE_PROFILE_COUNT}" >&2
+    echo "Please set \$AWS_PROFILE to select a profile" >&2
+    exit 1
+  fi
+fi
+
+AWS_PROFILE=${AWS_PROFILE:-"default"}
+
+if [ -f "${AWS_CREDS_PATH}" ]; then
+  AWS_CREDENTIAL_FILE_MOUNT_TARGET="${AWS_CREDS_PATH}"
+else
+  # CI environments may have creds in 'AWS_DEV_*' envvars, map them to
+  # 'AWS_*'.
+  if [ -n "${AWS_DEV_ACCESS_KEY_ID:-""}" ] && [ -n "${AWS_DEV_SECRET_ACCESS_KEY:-""}" ]; then
+    AWS_ACCESS_KEY_ID="${AWS_DEV_ACCESS_KEY_ID}"
+    AWS_SECRET_ACCESS_KEY="${AWS_DEV_SECRET_ACCESS_KEY}"
+  fi
+
+  # Check AWS_* envvars for credentials, create temp creds file using
+  # those credentials:
+  if [ -n "${AWS_ACCESS_KEY_ID:-""}" ] && [ -n "${AWS_SECRET_ACCESS_KEY:-""}" ]; then
+    echo "Writing AWS env credentials to temporary file: ${TMP_AWS_CREDS_PATH}" >&2
+    cat > "${TMP_AWS_CREDS_PATH}" <<EOF
+[${AWS_PROFILE}]
+aws_access_key_id = ${AWS_ACCESS_KEY_ID}
+aws_secret_access_key = ${AWS_SECRET_ACCESS_KEY}
+EOF
+  else
+    echo "Missing AWS credentials file '${AWS_CREDS_PATH}' and AWS env (AWS_ACCESS_KEY_ID/AWS_SECRET_ACCESS_KEY)" >&2
+    exit 1
+  fi
+  AWS_CREDENTIAL_FILE_MOUNT_TARGET="${TMP_AWS_CREDS_PATH}"
+fi
+
+# Relay relevant environment variables by constructing an environment
+# variable file.
+ENV_FILE="${TMP_DIR}/env_file"
+touch "${ENV_FILE}"
+
+ENV_VARS=(
+AWS_PROFILE
+PACKAGE_SHA
+PACKAGE_LONG_SHA
+GITHUB_USERNAME
+GITHUB_TOKEN
+PULL_REQUEST_ID
+DCOS_VARIANT
+DCOS_INSTALLER_CHANNEL
+DCOS_CLUSTER_BACKEND
+DCOS_LICENSE_KEY_CONTENTS
+)
+
+for e in "${ENV_VARS[@]}"; do
+  if [[ -n "${!e:-}" ]]; then
+    echo "${e}=${!e}" | tee -a "${ENV_FILE}" >&2
+  fi
+done
+
+# NOTE: A shared volume has the same gid as its host volume on Linux,
+# but the same group name on macOS. To run this script on both
+# platforms, we run the build with the group name of the docker socket.
+DOCKER_SOCKET_GID=$(echo /var/run/docker.sock | perl -lne 'use File::stat; print stat($_)->gid')
+
+# Attach to terminal if we have a TTY so that things like CTRL-C work.
+if [ -t 1 ]; then
+  TTYARGS="-ti"
+else
+  TTYARGS=""
+fi
+
+echo "-------------------------" >&2
+echo "|    Dev environment    |" >&2
+echo "-------------------------" >&2
+
+docker run \
+  $TTYARGS \
+  --rm \
+  --user "$(id -u):$(id -g)" \
+  --group-add 0 \
+  --group-add staff \
+  --group-add "${DOCKER_SOCKET_GID}" \
+  --env-file "${ENV_FILE}" \
+  -e "AWS_SHARED_CREDENTIALS_FILE=/.aws/credentials" \
+  -w "/source" \
+  -v "${ROOT_DIR}:/source" \
+  -v "/var/run/docker.sock:/var/run/docker.sock" \
+  -v "${AWS_CREDENTIAL_FILE_MOUNT_TARGET}:/.aws/credentials:ro" \
+  "${DOCKER_DEV_IMAGE}" \
+  /bin/bash "$@"
