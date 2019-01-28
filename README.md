@@ -36,3 +36,9 @@ The Terraform modules in this repository follow this layout:
 ```bash
 modules/<provider>/<name>
 ```
+
+## How Local Testing Works
+
+Under the hood, we created a helper command `module-source-converter` to automatically convert module `source` fields to use [relative local paths](https://www.terraform.io/docs/modules/sources.html#local-paths).
+
+The helper is based on the HCL [parser](https://github.com/hashicorp/hcl/tree/master/hcl/parser) and [printer](https://github.com/hashicorp/hcl/tree/master/hcl/printer) provided by Hashicorp.
