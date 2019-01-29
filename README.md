@@ -20,6 +20,12 @@ $ make init
 
 All Terraform modules are git submodules linked to the actual git repositories for the Terraform modules.
 
+Then, create a local feature branch to develop your features.
+
+```bash
+$ BRANCH=mybranch make branch
+```
+
 Now, you can start to edit Terraform module files.
 No need to modify module `source` fields as those will be automatically rewritten for local testing.
 Once you are done, type the following command to create the local testing environment:
@@ -36,17 +42,17 @@ $ cd <GENERATED_PATH>
 $ terraform apply
 ```
 
-When you are ready to release the command below will go to each submodule and apply all the changes and create a branch for review.
+When you are ready to upstream your changes, the command below will go to each submodule and apply all the changes and create a branch for review.
 
 ```bash
-$ make release
+$ make upstream
 ```
 
-The branch name will be automatically generated.
-If you want to specify the branch name, you can set the environment variable `BRANCH` like the following:
+The branch name will be automatically generated based on your current branch name and your username.
+If you want to automatically create a PR, use the following command:
 
 ```bash
-$ BRANCH="awesome-branch" make release
+$ SUBMIT_PR=true make upstream
 ```
 
 ## Options
