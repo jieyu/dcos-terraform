@@ -2,13 +2,19 @@
 
 This is an umbrella repository for all [terraform modules](https://github.com/dcos-terraform) for DC/OS.
 
+# Prerequisite
+- GNUMake
+- git
+- [hub](https://hub.github.com/)
+- [terraform](https://www.terraform.io/downloads.html)
+
 ## Get Started
 
 First, pull all the Terraform module dependencies.
 
 ```bash
 $ git clone <URL_TO_THIS_REPO>
-$ make bootstrap
+$ make init
 ```
 
 All Terraform modules are git submodules linked to the actual git repositories for the Terraform modules.
@@ -27,6 +33,30 @@ The directory should have Terraform initialized with your locally modified Terra
 ```bash
 $ cd <GENERATED_PATH>
 $ terraform apply
+```
+
+When you are ready to release the command below will go to each submodule and apply all the changes and create a branch for review.
+
+```bash
+$ make release branch=mynewfeature
+```
+
+## Options
+
+### ssh github access
+
+If you github organazation requires you to use ssh github access for authentication, you can easily switch to this with this command below:
+
+```bash
+$ make ssh-git
+```
+
+### http github access
+
+If you need to revert back to any reason, here is the command:
+
+```bash
+$ make http-git
 ```
 
 ## Modules Layout
