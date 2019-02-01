@@ -7,6 +7,10 @@ DIST_BINARIES := \
 init:
 	git submodule update --init
 
+.PHONY: deinit
+deinit:
+	git submodule deinit --all -f
+
 .PHONY: release
 release:
 	git submodule foreach bash -c '\
