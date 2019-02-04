@@ -2,8 +2,9 @@
 
 This is an umbrella repository for all [terraform modules](https://github.com/dcos-terraform) for DC/OS.
 
-# Prerequisite
-- GNUMake
+## Prerequisite
+
+- GNU Make
 - git
 - [hub](https://hub.github.com/)
 - [terraform](https://www.terraform.io/downloads.html)
@@ -38,7 +39,14 @@ $ terraform apply
 When you are ready to release the command below will go to each submodule and apply all the changes and create a branch for review.
 
 ```bash
-$ make release branch=mynewfeature
+$ make release
+```
+
+The branch name will be automatically generated.
+If you want to specify the branch name, you can set the environment variable `BRANCH` like the following:
+
+```bash
+$ BRANCH="awesome-branch" make release
 ```
 
 ## Options

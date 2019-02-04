@@ -3,6 +3,8 @@ include PACKAGE
 DIST_BINARIES := \
   $(DIST_DIR)/module-source-converter
 
+BRANCH ?= $(shell uuidgen)
+
 .PHONY: init
 init:
 	git submodule update --init
@@ -13,14 +15,7 @@ deinit:
 
 .PHONY: release
 release:
-	git submodule foreach bash -c '\
-	if $$(git status | grep -q modified:); then \
-	   git checkout -b $(branch); \
-	   git add -A; \
-	   git commit; \
-	   git push origin $(branch); \
-	   hub pull-request; \
-	fi' 
+	git submodule foreach "BRANCH=$(BRANCH) $(CURDIR)/scripts/submit-pull-requests.sh"
 
 .PHONY: ssh-git
 ssh-git:
