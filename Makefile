@@ -23,6 +23,11 @@ pull:
 	git submodule foreach "git pull"
 	git pull
 
+.PHONY: rebase
+rebase:
+	git submodule foreach "git rebase master"
+	git rebase
+
 .PHONY: upstream
 upstream:
 	git submodule foreach "BRANCH=$(BRANCH) $(CURDIR)/scripts/upstream-changes.sh"
