@@ -28,8 +28,8 @@ if [ -n "$(git diff master)" ]; then
   else
     git push origin "${BRANCH}"
   fi
-fi
 
-if [ -n "${SUBMIT_PR:-""}" ]; then
-  hub pull-request
+  if [ -n "${SUBMIT_PR:-""}" ]; then
+    hub pull-request
+  fi
 fi
