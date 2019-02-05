@@ -8,6 +8,7 @@ This is an umbrella repository for all [terraform modules](https://github.com/dc
 - git
 - [hub](https://hub.github.com/)
 - [terraform](https://www.terraform.io/downloads.html)
+- [terraform-docs](https://github.com/segmentio/terraform-docs)
 
 ## Get Started
 
@@ -42,6 +43,13 @@ $ cd <GENERATED_PATH>
 $ terraform apply
 ```
 
+If your change involves input/output variables, you will need to update the docs as well.
+The following command will automatically update the docs based on your change to the terraform files.
+
+```bash
+$ make docs
+```
+
 When you are ready to upstream your changes, the command below will go to each submodule and apply all the changes and create a branch for review.
 
 ```bash
@@ -53,6 +61,27 @@ If you want to automatically create a PR, use the following command:
 
 ```bash
 $ SUBMIT_PR=true make upstream
+```
+
+## Developing in Docker
+
+You can run all the commands above in a Docker environment.
+Simply run `scripts/shell` will take you to a Docker environment with all tooling installed.
+
+```bash
+$ scripts/shell
+...
+-------------------------
+|    Dev environment    |
+-------------------------
+/source$ make tenv
+...
+```
+
+You can also use that in a non-interactive environment (e.g., CI).
+
+```bash
+$ scripts/shell -c "make tenv"
 ```
 
 ## Options
