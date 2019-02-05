@@ -26,6 +26,10 @@ pull:
 rebase:
 	git submodule foreach "git rebase master"
 
+.PHONY: docs
+docs:
+	git submodule foreach "terraform-docs md . | tr -d '\r' > README.md"
+
 .PHONY: upstream
 upstream:
 	git submodule foreach "BRANCH=$(BRANCH) $(CURDIR)/scripts/upstream-changes.sh"
