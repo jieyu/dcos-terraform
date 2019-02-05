@@ -10,10 +10,9 @@ ROOT_DIR="${CURRENT_DIR}/.."
 
 BRANCH=${BRANCH:-"default-branch"}
 
-CHANGES=$(git status --porcelain --untracked-files=all)
+git checkout "${BRANCH}" || git checkout -b "${BRANCH}"
 
-if [ -n "${CHANGES}" ]; then
-  git checkout "${BRANCH}" || git checkout -b "${BRANCH}"
+if [ -n "$(git status --porcelain --untracked-files=all)" ]; then
   git add -A
 
   if [ -n "${AMMEND:-""}" ]; then
@@ -21,14 +20,16 @@ if [ -n "${CHANGES}" ]; then
   else
     git commit
   fi
+fi
 
+if [ -n "$(git diff master)" ]; then
   if [ -n "${FORCE_PUSH:-""}" ]; then
     git push origin "${BRANCH}" --force
   else
-    git push origin "${BRANCH}" --force
+    git push origin "${BRANCH}"
   fi
+fi
 
-  if [ -n "${SUBMIT_PR:-""}" ]; then
-    hub pull-request
-  fi
+if [ -n "${SUBMIT_PR:-""}" ]; then
+  hub pull-request
 fi
