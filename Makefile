@@ -3,7 +3,7 @@ include PACKAGE
 DIST_BINARIES := \
   $(DIST_DIR)/module-source-converter
 
-BRANCH ?= $(shell uuidgen)
+BRANCH ?= $(shell git rev-parse --abbrev-ref HEAD)
 
 .PHONY: init
 init:
@@ -13,9 +13,19 @@ init:
 deinit:
 	git submodule deinit --all -f
 
-.PHONY: release
-release:
-	git submodule foreach "BRANCH=$(BRANCH) $(CURDIR)/scripts/submit-pull-requests.sh"
+.PHONY: branch
+branch:
+	git checkout $(BRANCH) || git checkout -b $(BRANCH)
+	git submodule foreach "git checkout $(BRANCH) || git checkout -b $(BRANCH)"
+
+.PHONY: pull
+pull:
+	git submodule foreach "git pull"
+	git pull
+
+.PHONY: upstream
+upstream:
+	git submodule foreach "BRANCH=$(BRANCH) $(CURDIR)/scripts/upstream-changes.sh"
 
 .PHONY: ssh-git
 ssh-git:
